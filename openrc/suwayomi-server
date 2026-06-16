@@ -5,7 +5,7 @@ description="A free and open source manga reader server that runs extensions bui
 user="suwayomi"
 group="suwayomi"
 
-java_bin="/opt/openjdk-bin-21/bin/java"
+java_bin="/usr/lib64/openjdk-25/bin/java"
 jar="/opt/suwayomi-server/suwayomi-server.jar"
 root_dir="/var/lib/suwayomi-server"
 
