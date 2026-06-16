@@ -1,0 +1,28 @@
+#!/sbin/openrc-run
+# /etc/init.d/suwayomi-server
+description="A free and open source manga reader server that runs extensions built for Tachiyomi."
+
+user="suwayomi"
+group="suwayomi"
+
+java_bin="/opt/openjdk-bin-21/bin/java"
+jar="/opt/suwayomi-server/suwayomi-server.jar"
+root_dir="/var/lib/suwayomi-server"
+
+java_args="-Dsuwayomi.tachidesk.config.server.initialOpenInBrowserEnabled=false -Dsuwayomi.tachidesk.config.server.systemTrayEnabled=false -Dsuwayomi.tachidesk.config.server.rootDir=${root_dir}"
+
+command="$java_bin"
+command_args="$java_args -jar $jar"
+command_user="${user}:${group}"
+command_background=true
+
+pidfile="/var/run/${RC_SVCNAME}.pid"
+
+depend() {
+    need net
+    use logger
+}
+
+start_pre() {
+    checkpath --directory --owner "${user}:${group}" --mode 0750 "${root_dir}"
+}
