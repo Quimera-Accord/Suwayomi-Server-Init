@@ -6,6 +6,9 @@ user="suwayomi"
 group="suwayomi"
 root_dir="/var/lib/suwayomi-server"
 
+xvfb_bin="/usr/bin/xvfb-run"
+xvfb_args="--auto-servernum"
+
 java_bin="/usr/lib64/openjdk-25/bin/java"
 java_args="-Dsuwayomi.tachidesk.config.server.initialOpenInBrowserEnabled=false -Dsuwayomi.tachidesk.config.server.systemTrayEnabled=false -Dsuwayomi.tachidesk.config.server.rootDir=${root_dir} --enable-native-access=ALL-UNNAMED"
 jar="/opt/suwayomi-server/suwayomi-server.jar"
@@ -13,8 +16,8 @@ jar="/opt/suwayomi-server/suwayomi-server.jar"
 export LD_LIBRARY_PATH="/usr/lib64/openjdk-25/lib/server:/usr/lib64/openjdk-25/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 export LD_PRELOAD="${root_dir}/bin/kcef/libcef.so"
 
-command="$java_bin"
-command_args="$java_args -jar $jar"
+command="$xvfb_bin"
+command_args="$xvfb_args $java_bin $java_args -jar $jar"
 command_user="${user}:${group}"
 command_background=true
 
