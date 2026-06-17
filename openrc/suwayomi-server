@@ -4,12 +4,11 @@ description="A free and open source manga reader server that runs extensions bui
 
 user="suwayomi"
 group="suwayomi"
-
-java_bin="/usr/lib64/openjdk-25/bin/java"
-jar="/opt/suwayomi-server/suwayomi-server.jar"
 root_dir="/var/lib/suwayomi-server"
 
+java_bin="/usr/lib64/openjdk-25/bin/java"
 java_args="-Dsuwayomi.tachidesk.config.server.initialOpenInBrowserEnabled=false -Dsuwayomi.tachidesk.config.server.systemTrayEnabled=false -Dsuwayomi.tachidesk.config.server.rootDir=${root_dir} --enable-native-access=ALL-UNNAMED"
+jar="/opt/suwayomi-server/suwayomi-server.jar"
 
 export LD_LIBRARY_PATH="/usr/lib64/openjdk-25/lib/server:/usr/lib64/openjdk-25/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 export LD_PRELOAD="${root_dir}/bin/kcef/libcef.so"
@@ -20,8 +19,8 @@ command_user="${user}:${group}"
 command_background=true
 
 pidfile="/var/run/${RC_SVCNAME}.pid"
-output_log="/var/log/${RC_SVCNAME}.log"
-error_log="/var/log/${RC_SVCNAME}.log"
+output_logger="logger -t suwayomi"
+error_logger="logger -t suwayomi -s"
 
 depend() {
     need net
