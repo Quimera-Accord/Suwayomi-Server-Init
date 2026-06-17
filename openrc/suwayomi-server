@@ -7,7 +7,7 @@ group="suwayomi"
 root_dir="/var/lib/suwayomi-server"
 
 xvfb_bin="/usr/bin/xvfb-run"
-xvfb_args="--auto-servernum"
+xvfb_args="--auto-servernum dbus-launch --exit-with-session"
 
 java_bin="/usr/lib64/openjdk-25/bin/java"
 java_args="-Dsuwayomi.tachidesk.config.server.initialOpenInBrowserEnabled=false -Dsuwayomi.tachidesk.config.server.systemTrayEnabled=false -Dsuwayomi.tachidesk.config.server.rootDir=${root_dir} --enable-native-access=ALL-UNNAMED"
