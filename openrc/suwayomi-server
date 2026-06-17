@@ -9,7 +9,7 @@ java_bin="/usr/lib64/openjdk-25/bin/java"
 jar="/opt/suwayomi-server/suwayomi-server.jar"
 root_dir="/var/lib/suwayomi-server"
 
-java_args="-Dsuwayomi.tachidesk.config.server.initialOpenInBrowserEnabled=false -Dsuwayomi.tachidesk.config.server.systemTrayEnabled=false -Dsuwayomi.tachidesk.config.server.rootDir=${root_dir}"
+java_args="-Dsuwayomi.tachidesk.config.server.initialOpenInBrowserEnabled=false -Dsuwayomi.tachidesk.config.server.systemTrayEnabled=false -Dsuwayomi.tachidesk.config.server.rootDir=${root_dir} --enable-native-access=ALL-UNNAMED"
 
 command="$java_bin"
 command_args="$java_args -jar $jar"
