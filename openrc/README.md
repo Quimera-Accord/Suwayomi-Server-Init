@@ -11,7 +11,3 @@ emerge --ask \
   media-libs/libva-intel-media-driver \
   media-libs/mesa
 ```
-
-```
-echo "/usr/lib64/openjdk-25/lib/server" > /etc/ld.so.conf.d/openjdk-25.conf
-```
