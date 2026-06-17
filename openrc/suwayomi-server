@@ -11,6 +11,9 @@ root_dir="/var/lib/suwayomi-server"
 
 java_args="-Dsuwayomi.tachidesk.config.server.initialOpenInBrowserEnabled=false -Dsuwayomi.tachidesk.config.server.systemTrayEnabled=false -Dsuwayomi.tachidesk.config.server.rootDir=${root_dir} --enable-native-access=ALL-UNNAMED"
 
+export LD_LIBRARY_PATH="/usr/lib64/openjdk-25/lib/server:/usr/lib64/openjdk-25/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
+export LD_PRELOAD="${root_dir}/bin/kcef/libcef.so"
+
 command="$java_bin"
 command_args="$java_args -jar $jar"
 command_user="${user}:${group}"
