@@ -1,3 +1,4 @@
+# Gentoo
 ```
 emerge --ask \
   app-accessibility/at-spi2-core \
@@ -14,4 +15,26 @@ emerge --ask \
   x11-libs/libxkbcommon \
   x11-libs/pango \
   x11-misc/xvfb-run
+```
+
+# Devuan 6 Excalibur
+```
+apt install \
+  at-spi2-core \
+  jq \
+  openjdk-25-jdk \
+  libwayland-client0 \
+  libwayland-cursor0 \
+  libwayland-egl1 \
+  intel-media-va-driver \
+  libgl1-mesa-dri \
+  libglx-mesa0 \
+  curl \
+  dbus \
+  libxcomposite1 \
+  libxcursor1 \
+  libxdamage1 \
+  libxkbcommon0 \
+  libpango-1.0-0 \
+  xvfb
 ```
