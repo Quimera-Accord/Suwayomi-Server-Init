@@ -36,5 +36,15 @@ apt install \
   libxdamage1 \
   libxkbcommon0 \
   libpango-1.0-0 \
-  xvfb
+  xvfb \
+  libxss1 \
+  libxext6 \
+  libegl1 \
+  gawk \
+  findutils \
+  fonts-arphic-ukai \
+  fonts-arphic-uming \
+  fonts-ipafont-mincho \
+  fonts-ipafont-gothic \
+  fonts-unfonts-core
 ```
