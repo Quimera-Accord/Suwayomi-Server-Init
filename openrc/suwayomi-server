@@ -14,7 +14,7 @@ java_args="-Dsuwayomi.tachidesk.config.server.initialOpenInBrowserEnabled=false 
 jar="/opt/suwayomi-server/suwayomi-server.jar"
 
 export LD_LIBRARY_PATH="/usr/lib64/openjdk-25/lib/server:/usr/lib64/openjdk-25/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
-export LD_PRELOAD="${root_dir}/bin/kcef/libcef.so"
+export LD_PRELOAD="${root_dir}/bin/kcef/libcef.so:/opt/lib/catch_abort.so"
 
 command="$xvfb_bin"
 command_args="$xvfb_args $java_bin $java_args -jar $jar"
