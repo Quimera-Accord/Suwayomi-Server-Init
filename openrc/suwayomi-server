@@ -13,8 +13,10 @@ java_bin="/usr/lib64/openjdk-25/bin/java"
 java_args="-Dsuwayomi.tachidesk.config.server.initialOpenInBrowserEnabled=false -Dsuwayomi.tachidesk.config.server.systemTrayEnabled=false -Dsuwayomi.tachidesk.config.server.rootDir=${root_dir} --enable-native-access=ALL-UNNAMED"
 jar="/opt/suwayomi-server/suwayomi-server.jar"
 
+kcef_lib="${root_dir}/bin/kcef/libcef.so"
+catch_abort_lib="/opt/lib/catch_abort.so"
+
 export LD_LIBRARY_PATH="/usr/lib64/openjdk-25/lib/server:/usr/lib64/openjdk-25/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
-export LD_PRELOAD="${root_dir}/bin/kcef/libcef.so:/opt/lib/catch_abort.so"
 
 command="$xvfb_bin"
 command_args="$xvfb_args $java_bin $java_args -jar $jar"
@@ -26,10 +28,25 @@ output_logger="logger -t suwayomi"
 error_logger="logger -t suwayomi -s"
 
 depend() {
-    need net
+    use net
     use logger
 }
 
 start_pre() {
     checkpath --directory --owner "${user}:${group}" --mode 0750 "${root_dir}"
+
+    preload=""
+    if [ -f "$kcef_lib" ]; then
+        preload="$kcef_lib"
+    else
+        ewarn "kcef libcef.so not found at ${kcef_lib}, starting without it"
+    fi
+
+    if [ -f "$catch_abort_lib" ]; then
+        preload="${preload:+${preload}:}${catch_abort_lib}"
+    else
+        ewarn "catch_abort.so not found at ${catch_abort_lib}, starting without it"
+    fi
+
+    export LD_PRELOAD="$preload"
 }
