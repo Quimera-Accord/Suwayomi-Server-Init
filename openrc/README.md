@@ -37,6 +37,7 @@ apt install \
   libxkbcommon0 \
   libpango-1.0-0 \
   xvfb \
+  xauth \
   libxss1 \
   libxext6 \
   libegl1 \
