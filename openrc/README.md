@@ -48,3 +48,12 @@ apt install \
   fonts-ipafont-gothic \
   fonts-unfonts-core
 ```
+
+# VirtualGL (optional, GPU acceleration)
+
+```
+wget https://github.com/VirtualGL/virtualgl/releases/download/3.1.4/virtualgl_3.1.4_amd64.deb
+dpkg -i virtualgl_3.1.4_amd64.deb
+apt --fix-broken install -y
+```
+
