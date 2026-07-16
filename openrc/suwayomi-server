@@ -16,6 +16,14 @@ jar="/opt/suwayomi-server/suwayomi-server.jar"
 kcef_lib="${root_dir}/bin/kcef/libcef.so"
 catch_abort_lib="/opt/lib/catch_abort.so"
 
+# VirtualGL — optional GPU acceleration for the CEF/JOGL rendering.
+# Not required: if the binary isn't present, or no /dev/dri device is found
+# (e.g. host has no GPU passed through, or this is running bare-metal without
+# one), we fall back to plain xvfb-run + software rendering (llvmpipe).
+# See: incus config device add <container> gpu gpu
+vgl_bin="/opt/VirtualGL/bin/vglrun"
+vgl_device="${SUWAYOMI_VGL_DEVICE:-egl0}"
+
 export LD_LIBRARY_PATH="/usr/lib64/openjdk-25/lib/server:/usr/lib64/openjdk-25/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}"
 
 command="$xvfb_bin"
@@ -49,4 +57,18 @@ start_pre() {
     fi
 
     export LD_PRELOAD="$preload"
+
+    if [ -x "$vgl_bin" ] && { [ -e /dev/dri/renderD128 ] || [ -e /dev/dri/card0 ]; }; then
+        einfo "VirtualGL found, enabling GPU-accelerated rendering (device: ${vgl_device})"
+        command_args="$xvfb_args $vgl_bin -d ${vgl_device} $java_bin $java_args -jar $jar"
+    else
+        if [ ! -x "$vgl_bin" ]; then
+            ewarn "VirtualGL not found at ${vgl_bin} — falling back to software rendering (slower)."
+            ewarn "Run 'suwayomi-update --check-vgl' for install instructions."
+        else
+            ewarn "No /dev/dri device found — falling back to software rendering (slower)."
+            ewarn "Pass a GPU through to this container/host if one is available."
+        fi
+        command_args="$xvfb_args $java_bin $java_args -jar $jar"
+    fi
 }
