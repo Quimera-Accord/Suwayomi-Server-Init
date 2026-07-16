@@ -25,7 +25,7 @@ command_background=true
 
 pidfile="/var/run/${RC_SVCNAME}.pid"
 output_logger="logger -t suwayomi"
-error_logger="logger -t suwayomi -s"
+error_logger="logger -t suwayomi"
 
 depend() {
     use net
